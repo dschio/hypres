@@ -1,6 +1,7 @@
 #include "dialog.h"
 #include "ui_dialog.h"
-
+#include <iostream>
+#include <cstdlib>
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
 
@@ -111,31 +112,31 @@ void Dialog::setupForMode( OPERATIONAL_MODE om )
 // select target temperature and band with the following..
 void Dialog::on_TargetTemperatureSpin_valueChanged(double arg1)
 {
-    qDebug() << "Target temperature is " << arg1;
+    qDebug() << "Target temperature is " << qSetRealNumberPrecision( 10 ) << arg1;
 }
 
 void Dialog::on_TemperatureBandSpin_valueChanged(double arg1)
 {
-    qDebug() << "Temperature band is " << arg1;
+    qDebug() << "Temperature band is " << qSetRealNumberPrecision( 10 ) << arg1;
 }
 
 /////////////////////////////////////////////////////
 // KI and KP with the following...
 void Dialog::on_KISpin_valueChanged(double arg1)
 {
-    qDebug() << "KI is " << arg1;
+    qDebug() << "KI is " << qSetRealNumberPrecision( 10 ) << arg1;
 }
 
 void Dialog::on_KPSpin_valueChanged(double arg1)
 {
-    qDebug() << "KP is " << arg1;
+    qDebug() << "KP is " << qSetRealNumberPrecision( 10 ) << arg1;
 }
 
 /////////////////////////////////////////////////////
 // select power output with the following...
 void Dialog::on_PowerOutputSpin_valueChanged(double arg1)
 {
-    qDebug() << "Power Output is " << arg1;
+    qDebug() << "Power Output is " << qSetRealNumberPrecision( 10 ) << arg1;
 }
 
 
@@ -172,3 +173,4 @@ void Dialog::on_SoftStop_pressed()
 {
     qDebug() << "pressed soft stop";
 }
+

@@ -25,27 +25,18 @@ private:
     void setupForMode(OPERATIONAL_MODE om);
 
 private slots:
-
-
     void on_SoftStop_pressed();
-
     void on_TargetTemperatureSpin_valueChanged(double arg1);
-
     void on_TemperatureBandSpin_valueChanged(double arg1);
-
     void on_KISpin_valueChanged(double arg1);
-
     void on_PowerOutputSpin_valueChanged(double arg1);
-
     void on_KPSpin_valueChanged(double arg1);
-
     void on_RTGraphRadioButton_clicked();
-
     void on_TCGraphRadioButton_clicked();
-
     void on_TemperatureControlModeRadioButton_clicked();
-
     void on_PowerControlModeRadioButton_clicked();
+
+
 
 private:
     Ui::Dialog *ui;
