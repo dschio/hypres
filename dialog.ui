@@ -623,9 +623,9 @@
   <widget class="QPushButton" name="SoftStop">
    <property name="geometry">
     <rect>
-     <x>1000</x>
+     <x>990</x>
      <y>630</y>
-     <width>111</width>
+     <width>121</width>
      <height>41</height>
     </rect>
    </property>

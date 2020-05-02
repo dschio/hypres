@@ -248,6 +248,7 @@ Makefile: ../cryoCooler.pro ../../../../Qt/5.14.2/mingw73_64/mkspecs/win32-g++/q
 		../../../../Qt/5.14.2/mingw73_64/mkspecs/features/qt_config.prf \
 		../../../../Qt/5.14.2/mingw73_64/mkspecs/win32-g++/qmake.conf \
 		../../../../Qt/5.14.2/mingw73_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../../Qt/5.14.2/mingw73_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt/5.14.2/mingw73_64/mkspecs/features/toolchain.prf \
 		../../../../Qt/5.14.2/mingw73_64/mkspecs/features/default_pre.prf \
@@ -276,7 +277,6 @@ Makefile: ../cryoCooler.pro ../../../../Qt/5.14.2/mingw73_64/mkspecs/win32-g++/q
 		../../../../Qt/5.14.2/mingw73_64/lib/Qt5Gui.prl \
 		../../../../Qt/5.14.2/mingw73_64/lib/Qt5Core.prl \
 		../../../../Qt/5.14.2/mingw73_64/lib/qtmain.prl \
-		.qmake.stash \
 		../../../../Qt/5.14.2/mingw73_64/mkspecs/features/build_pass.prf
 	$(QMAKE) -o Makefile ../cryoCooler.pro -spec win32-g++ CONFIG+=debug
 ../../../../Qt/5.14.2/mingw73_64/mkspecs/features/spec_pre.prf:
@@ -457,6 +457,7 @@ Makefile: ../cryoCooler.pro ../../../../Qt/5.14.2/mingw73_64/mkspecs/win32-g++/q
 ../../../../Qt/5.14.2/mingw73_64/mkspecs/features/qt_config.prf:
 ../../../../Qt/5.14.2/mingw73_64/mkspecs/win32-g++/qmake.conf:
 ../../../../Qt/5.14.2/mingw73_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../../Qt/5.14.2/mingw73_64/mkspecs/features/exclusive_builds.prf:
 ../../../../Qt/5.14.2/mingw73_64/mkspecs/features/toolchain.prf:
 ../../../../Qt/5.14.2/mingw73_64/mkspecs/features/default_pre.prf:
@@ -485,7 +486,6 @@ Makefile: ../cryoCooler.pro ../../../../Qt/5.14.2/mingw73_64/mkspecs/win32-g++/q
 ../../../../Qt/5.14.2/mingw73_64/lib/Qt5Gui.prl:
 ../../../../Qt/5.14.2/mingw73_64/lib/Qt5Core.prl:
 ../../../../Qt/5.14.2/mingw73_64/lib/qtmain.prl:
-.qmake.stash:
 ../../../../Qt/5.14.2/mingw73_64/mkspecs/features/build_pass.prf:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ../cryoCooler.pro -spec win32-g++ CONFIG+=debug
