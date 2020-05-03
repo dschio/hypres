@@ -62,8 +62,8 @@ bool ChartView::viewportEvent(QEvent *event)
     return QChartView::viewportEvent(event);
 }
 
-void ChartView::mousePressEvent(QMouseEvent *event)
-{
+//void ChartView::mousePressEvent(QMouseEvent *event)
+//{
 //    if (m_isTouching)
 //        return;
 
@@ -72,17 +72,17 @@ void ChartView::mousePressEvent(QMouseEvent *event)
 //        zoomFlag = true;
 //    }
 //    QChartView::mousePressEvent(event);
-}
+//}
 
-void ChartView::mouseMoveEvent(QMouseEvent *event)
-{
+//void ChartView::mouseMoveEvent(QMouseEvent *event)
+//{
 //    if (m_isTouching)
 //        return;
 //    QChartView::mouseMoveEvent(event);
-}
+//}
 
-void ChartView::mouseReleaseEvent(QMouseEvent *event)
-{
+//void ChartView::mouseReleaseEvent(QMouseEvent *event)
+//{
 //    if (m_isTouching)
 //        m_isTouching = false;
 
@@ -95,7 +95,7 @@ void ChartView::mouseReleaseEvent(QMouseEvent *event)
 //    chart()->setAnimationOptions(QChart::SeriesAnimations);
 
 //    QChartView::mouseReleaseEvent(event);
-}
+//}
 
 //![1]
 void ChartView::keyPressEvent(QKeyEvent *event)

@@ -89,5 +89,7 @@ private:
     float m_targetTemperatureBand_Hi;
     float m_targetTemperatureBand_Low;
     float m_targetPower;
+
+    int m_timer;
 };
 #endif // DIALOG_H

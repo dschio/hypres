@@ -51,9 +51,9 @@ public:
 //![2]
 protected:
     bool viewportEvent(QEvent *event);
-    void mousePressEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
+//    void mousePressEvent(QMouseEvent *event);
+//    void mouseMoveEvent(QMouseEvent *event);
+//    void mouseReleaseEvent(QMouseEvent *event);
     void keyPressEvent(QKeyEvent *event);
 //![2]
 

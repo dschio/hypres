@@ -37,7 +37,7 @@ Dialog::Dialog(QWidget *parent)
     // set up the rest of the window for these settings
     setupForMode(TC_MODE);
 
-startTimer(10);   // 1-second timer
+    m_timer = startTimer(10);   // 1-second timer
 
     // set up the temperature control chart
     Chart *TCchart = new Chart();
@@ -155,6 +155,12 @@ void Dialog::timerEvent(QTimerEvent *event)
     static float prevRTMax = 0;
     static float prevTCMax = 0;
     static float prevPowerMax = 0;
+
+
+    if( event->timerId() != m_timer )
+    {
+        return;
+    }
 
     if( x > TOTAL_SECONDS )
     {
