@@ -140,7 +140,7 @@
   <property name="autoFillBackground">
    <bool>true</bool>
   </property>
-  <widget class="QChartView" name="MyChart">
+  <widget class="ChartView" name="TC_Chart">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -208,7 +208,7 @@
     <string notr="true">buttonGroupGraphSelect</string>
    </attribute>
   </widget>
-  <widget class="QLCDNumber" name="text_RT">
+  <widget class="QLCDNumber" name="lcd_text_RT">
    <property name="enabled">
     <bool>true</bool>
    </property>
@@ -222,7 +222,7 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>20</pointsize>
+     <pointsize>9</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
@@ -310,7 +310,7 @@
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QLCDNumber" name="text_TC">
+  <widget class="QLCDNumber" name="lcd_text_TC">
    <property name="enabled">
     <bool>true</bool>
    </property>
@@ -324,7 +324,7 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>20</pointsize>
+     <pointsize>9</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
@@ -412,7 +412,7 @@
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QLCDNumber" name="text_POWER">
+  <widget class="QLCDNumber" name="lcd_text_POWER">
    <property name="enabled">
     <bool>true</bool>
    </property>
@@ -426,7 +426,7 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>20</pointsize>
+     <pointsize>9</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
@@ -1057,15 +1057,121 @@
     <bool>false</bool>
    </property>
   </widget>
+  <widget class="ChartView" name="RT_Chart">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>801</width>
+     <height>611</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="text_TC">
+   <property name="geometry">
+    <rect>
+     <x>950</x>
+     <y>90</y>
+     <width>141</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>24</pointsize>
+     <kerning>false</kerning>
+    </font>
+   </property>
+   <property name="acceptDrops">
+    <bool>false</bool>
+   </property>
+   <property name="inputMethodHints">
+    <set>Qt::ImhNone</set>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="undoRedoEnabled">
+    <bool>false</bool>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+   <property name="acceptRichText">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="text_POWER">
+   <property name="geometry">
+    <rect>
+     <x>950</x>
+     <y>150</y>
+     <width>141</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>24</pointsize>
+     <kerning>false</kerning>
+    </font>
+   </property>
+   <property name="acceptDrops">
+    <bool>false</bool>
+   </property>
+   <property name="inputMethodHints">
+    <set>Qt::ImhNone</set>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="undoRedoEnabled">
+    <bool>false</bool>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+   <property name="acceptRichText">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="text_RT">
+   <property name="geometry">
+    <rect>
+     <x>950</x>
+     <y>30</y>
+     <width>141</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>24</pointsize>
+     <kerning>false</kerning>
+    </font>
+   </property>
+   <property name="acceptDrops">
+    <bool>false</bool>
+   </property>
+   <property name="inputMethodHints">
+    <set>Qt::ImhNone</set>
+   </property>
+  </widget>
   <zorder>groupBox</zorder>
-  <zorder>MyChart</zorder>
+  <zorder>TC_Chart</zorder>
   <zorder>RTGraphRadioButton</zorder>
   <zorder>TCGraphRadioButton</zorder>
-  <zorder>text_RT</zorder>
+  <zorder>lcd_text_RT</zorder>
   <zorder>lineEdit</zorder>
-  <zorder>text_TC</zorder>
+  <zorder>lcd_text_TC</zorder>
   <zorder>lineEdit_2</zorder>
-  <zorder>text_POWER</zorder>
+  <zorder>lcd_text_POWER</zorder>
   <zorder>lineEdit_3</zorder>
   <zorder>TemperatureControlModeRadioButton</zorder>
   <zorder>PowerControlModeRadioButton</zorder>
@@ -1080,12 +1186,16 @@
   <zorder>KPSpin</zorder>
   <zorder>KISpin</zorder>
   <zorder>PowerOutputSpin</zorder>
+  <zorder>RT_Chart</zorder>
+  <zorder>text_TC</zorder>
+  <zorder>text_POWER</zorder>
+  <zorder>text_RT</zorder>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QChartView</class>
+   <class>ChartView</class>
    <extends>QGraphicsView</extends>
-   <header>QtCharts</header>
+   <header location="global">chartview.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

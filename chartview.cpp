@@ -29,10 +29,19 @@
 
 #include "chartview.h"
 #include <QtGui/QMouseEvent>
+#include <QDebug>
+
+extern bool zoomFlag;
 
 ChartView::ChartView(QChart *chart, QWidget *parent) :
     QChartView(chart, parent),
     m_isTouching(false)
+{
+    setRubberBand(QChartView::RectangleRubberBand);
+}
+
+ChartView::ChartView(QWidget *parent ) :
+    QChartView(parent)
 {
     setRubberBand(QChartView::RectangleRubberBand);
 }
@@ -55,34 +64,49 @@ bool ChartView::viewportEvent(QEvent *event)
 
 void ChartView::mousePressEvent(QMouseEvent *event)
 {
-    if (m_isTouching)
-        return;
-    QChartView::mousePressEvent(event);
+//    if (m_isTouching)
+//        return;
+
+//    if( zoomFlag == false )
+//    {
+//        zoomFlag = true;
+//    }
+//    QChartView::mousePressEvent(event);
 }
 
 void ChartView::mouseMoveEvent(QMouseEvent *event)
 {
-    if (m_isTouching)
-        return;
-    QChartView::mouseMoveEvent(event);
+//    if (m_isTouching)
+//        return;
+//    QChartView::mouseMoveEvent(event);
 }
 
 void ChartView::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (m_isTouching)
-        m_isTouching = false;
+//    if (m_isTouching)
+//        m_isTouching = false;
 
-    // Because we disabled animations when touch event was detected
-    // we must put them back on.
-    chart()->setAnimationOptions(QChart::SeriesAnimations);
+//    if( zoomFlag == false )
+//    {
+//        zoomFlag = true;
+//    }
+//    // Because we disabled animations when touch event was detected
+//    // we must put them back on.
+//    chart()->setAnimationOptions(QChart::SeriesAnimations);
 
-    QChartView::mouseReleaseEvent(event);
+//    QChartView::mouseReleaseEvent(event);
 }
 
 //![1]
 void ChartView::keyPressEvent(QKeyEvent *event)
 {
-    switch (event->key()) {
+    if( zoomFlag == false )
+    {
+        zoomFlag = true;
+    }
+
+    switch (event->key())
+    {
     case Qt::Key_Plus:
         chart()->zoomIn();
         break;
@@ -103,6 +127,8 @@ void ChartView::keyPressEvent(QKeyEvent *event)
         chart()->scroll(0, -10);
         break;
     default:
+        zoomFlag = false;
+        qDebug() << "clearing zoom flag";
         QGraphicsView::keyPressEvent(event);
         break;
     }

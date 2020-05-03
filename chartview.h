@@ -32,6 +32,9 @@
 
 #include <QtCharts/QChartView>
 #include <QtWidgets/QRubberBand>
+#include <QSemaphore>
+
+
 
 QT_CHARTS_USE_NAMESPACE
 
@@ -41,6 +44,9 @@ class ChartView : public QChartView
 {
 public:
     ChartView(QChart *chart, QWidget *parent = 0);
+    ChartView(QWidget *parent = nullptr);
+
+
 
 //![2]
 protected:
@@ -53,6 +59,8 @@ protected:
 
 private:
     bool m_isTouching;
+
+
 };
 
 #endif
