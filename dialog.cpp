@@ -37,7 +37,7 @@ Dialog::Dialog(QWidget *parent)
     // set up the rest of the window for these settings
     setupForMode(TC_MODE);
 
-    m_timer = startTimer(10);   // 1-second timer
+    m_timer = startTimer(100);   // 1-second timer
 
     // set up the temperature control chart
     Chart *TCchart = new Chart();
