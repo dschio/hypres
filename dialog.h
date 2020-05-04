@@ -9,6 +9,7 @@
 #include <QtCharts/QLineSeries>
 #include <QValueAxis>
 #include <QDateTimeAxis>
+#include <QDateTime>
 #include <QVector>
 #include <QDebug>
 
@@ -42,18 +43,18 @@ public:
     float TargetPower(void)                     { return m_targetPower; }
     void TargetPower( float f, bool updateDisplay= false );
 
+    void UpdateTCChart( float ){}
+    void UpdateRTChart( float ){}
+
 private:
     void setupForMode(OPERATIONAL_MODE om);
 
     QLineSeries *TCseries = new QLineSeries();
     QLineSeries *RTseries = new QLineSeries();
-
     QValueAxis  *TCaxisY = new QValueAxis;
     QValueAxis  *RTaxisY = new QValueAxis;
-    QValueAxis  *TCaxisX = new QValueAxis;
-    QValueAxis  *RTaxisX = new QValueAxis;
-//    QDateTimeAxis  *TCaxisX = new QDateTimeAxis;
-//    QDateTimeAxis  *RTaxisX = new QDateTimeAxis;
+    QDateTimeAxis  *TCaxisX = new QDateTimeAxis;
+    QDateTimeAxis  *RTaxisX = new QDateTimeAxis;
 
     QLineSeries *bandHigh = new QLineSeries();
     QLineSeries *bandLow = new QLineSeries();
@@ -91,5 +92,8 @@ private:
     float m_targetPower;
 
     int m_timer;
+    int m_samplesPerSec;
+    int m_accumulatedSamples;
+    QDateTime m_startTime;
 };
 #endif // DIALOG_H
