@@ -19,13 +19,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     chart.cpp \
     chartview.cpp \
+    coolerchart.cpp \
     main.cpp \
-    dialog.cpp
+    dialog.cpp \
+    qledindicator.cpp
 
 HEADERS += \
     chart.h \
     chartview.h \
-    dialog.h
+    coolerchart.h \
+    dialog.h \
+    qledindicator.h
 
 FORMS += \
     dialog.ui
@@ -34,3 +38,8 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resources.qrc
+
+RC_ICONS = icon.ico

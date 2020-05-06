@@ -12,6 +12,8 @@
 #include <QDateTime>
 #include <QVector>
 #include <QDebug>
+#include "chart.h"
+#include "coolerchart.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Dialog; }
@@ -43,33 +45,15 @@ public:
     float TargetPower(void)                     { return m_targetPower; }
     void TargetPower( float f, bool updateDisplay= false );
 
-    void UpdateTCChart( float ){}
-    void UpdateRTChart( float ){}
-
 private:
     void setupForMode(OPERATIONAL_MODE om);
 
-    QLineSeries *TCseries = new QLineSeries();
-    QLineSeries *RTseries = new QLineSeries();
-    QValueAxis  *TCaxisY = new QValueAxis;
-    QValueAxis  *RTaxisY = new QValueAxis;
-    QDateTimeAxis  *TCaxisX = new QDateTimeAxis;
-    QDateTimeAxis  *RTaxisX = new QDateTimeAxis;
-
-    QLineSeries *bandHigh = new QLineSeries();
-    QLineSeries *bandLow = new QLineSeries();
-
-    QLineSeries *powerTarget = new QLineSeries();
-
-    QVector<QPointF> *TCpointsVector = new QVector<QPointF>;
-    QVector<QPointF> *RTpointsVector = new QVector<QPointF>;
-    QVector<QPointF> *BandHighpointsVector = new QVector<QPointF>;
-    QVector<QPointF> *BandLowpointsVector = new QVector<QPointF>;
-    QVector<QPointF> *PowerpointsVector = new QVector<QPointF>;
-
+    CoolerChartTC *TCchart;
+    CoolerChart *RTchart;
 
 private slots:
     void on_SoftStop_pressed();
+    void on_Deflux_pressed();
     void on_TargetTemperatureSpin_valueChanged(double arg1);
     void on_TemperatureBandSpin_valueChanged(double arg1);
     void on_KISpin_valueChanged(double arg1);
@@ -79,6 +63,8 @@ private slots:
     void on_TCGraphRadioButton_clicked();
     void on_TemperatureControlModeRadioButton_clicked();
     void on_PowerControlModeRadioButton_clicked();
+
+    //void on_ledIndicator_0_toggled(bool checked);
 
 protected:
     void timerEvent(QTimerEvent *event) override;
@@ -90,10 +76,7 @@ private:
     float m_targetTemperatureBand_Hi;
     float m_targetTemperatureBand_Low;
     float m_targetPower;
-
     int m_timer;
-    int m_samplesPerSec;
-    int m_accumulatedSamples;
     QDateTime m_startTime;
 };
 #endif // DIALOG_H

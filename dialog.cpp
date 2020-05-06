@@ -9,74 +9,41 @@
 #include <QDateTimeAxis>
 #include <QVector>
 #include <QDebug>
+#include <QMessageBox>
+#include <QAction>
 #include "chart.h"
+#include "coolerchart.h"
+#include "qledindicator.h"
 
 QT_CHARTS_USE_NAMESPACE
 
-#define SECONDS_TO_GRAPH    (360)                  // 1 hour graph (10 minutes for test)
-#define TOTAL_SAMPLES       (SECONDS_TO_GRAPH*3)    // 3 hours minimum (if sampled 1 per sec)
-
 bool zoomFlag = false;
+
+
 
 Dialog::Dialog(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::Dialog)
 {
     ui->setupUi(this);
-    setWindowTitle("Cryocooler");
 
     ///////////////////////////////////////////
+    // window
+    setWindowTitle("Cryocooler");
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+
+    QDateTime now = QDateTime::currentDateTime();
+    ///////////////////////////////////////////
     // set up the tip temperature chart
-    Chart *TCchart = new Chart();
-    TCchart->setTitle("TC");
-    TCchart->legend()->hide();
-    TCchart->addSeries(TCseries);
-    TCchart->addSeries(bandHigh);
-    TCchart->addSeries(bandLow);
-    TCchart->addSeries(powerTarget);
-    // and the axes for it
-    TCchart->addAxis(TCaxisX, Qt::AlignBottom);
-    TCchart->addAxis(TCaxisY, Qt::AlignLeft);
-    TCseries->attachAxis(TCaxisX);
-    TCseries->attachAxis(TCaxisY);
-    // include the temperature band markers on this chart
-    bandHigh->attachAxis(TCaxisX);
-    bandHigh->attachAxis(TCaxisY);
-    bandLow->attachAxis(TCaxisX);
-    bandLow->attachAxis(TCaxisY);
-    // set the x axis for the format as shown
-    TCaxisX->setFormat("h:mm:ss");
-    // x axis label
-    TCaxisX->setTitleText("sample time");
-    // y axis label
-    TCaxisY->setTitleText("\u00B0 K");
-    // ticks
-    TCaxisX->setTickCount(10);
-    // now attach the chart to the display widget
+    TCchart = new CoolerChartTC("TC", "\u00B0 K", ui->text_TC);
+    TCchart->SetStartTime(now);
     ui->TC_Chart->setChart(TCchart);
 
     ///////////////////////////////////////////
     // set up the reject temperature chart
-    Chart *RTchart = new Chart();
-    RTchart->setTitle("RT");
-    RTchart->addSeries(RTseries);
-    RTchart->legend()->hide();
-    // and the axes for it
-    RTchart->addAxis(RTaxisX, Qt::AlignBottom);
-    RTchart->addAxis(RTaxisY, Qt::AlignLeft);
-    RTseries->attachAxis(RTaxisX);
-    RTseries->attachAxis(RTaxisY);
-    // set the x axis for the format as shown
-    RTaxisX->setFormat("h:mm:ss");
-    // x axis label
-    RTaxisX->setTitleText("sample time");
-    // y axis label
-    RTaxisY->setTitleText("\u00B0 K");
-    // ticks
-    RTaxisX->setTickCount(10);
-    // now attach the chart to the display widget
+    RTchart = new CoolerChart("RT", "\u00B0 C", ui->text_RT);
+    RTchart->SetStartTime(now);
     ui->RT_Chart->setChart(RTchart);
-
 
     ///////////////////////////////////////////
     // set up the various other boxes
@@ -104,34 +71,25 @@ Dialog::Dialog(QWidget *parent)
     ///////////////////////////////////////////
     // save the start time for the graph
     // start time
-    m_startTime = QDateTime::currentDateTime();
-
-    // and clear out the accumulated samples
-    m_accumulatedSamples = 0;
-    TCpointsVector->clear();
-    RTpointsVector->clear();
-    BandHighpointsVector->clear();
-    BandLowpointsVector->clear();
-    PowerpointsVector->clear();
-
+    m_startTime = now;
 
     ///////////////////////////////////////////
     // start a timer to simulate the data
     m_timer = startTimer(1000);   // 1-second timer
 
 
-//    QPalette *lcdpalette = new QPalette;
-//    lcdpalette->setColor(QPalette::Background, QColor(255, 255, 255));
-//    lcdpalette->setColor(QPalette::Normal, QPalette::WindowText, Qt::red);
-//    ui->lcd_text_RT->setDigitCount(6);
-//    ui->lcd_text_RT->setSmallDecimalPoint(true);
-//    ui->lcd_text_TC->setDigitCount(6);
-//    ui->lcd_text_TC->setSmallDecimalPoint(true);
-//    ui->lcd_text_RT->setPalette(*lcdpalette);
-//    ui->lcd_text_TC->setPalette(*lcdpalette);
-//    ui->lcd_text_POWER->setPalette(*lcdpalette);
-//    ui->lcd_text_RT->hide();
-//    ui->lcd_text_TC->hide();
+    // init the led indicators
+    ui->ledIndicator_Connection->SetOff();
+    ui->ledIndicator_Error->SetOff();
+    ui->ledIndicator_Activity->SetOff();
+
+    // and init the state of the soft start / stop button.
+    // assume stopped for now ... will be updated by the
+    // control thread.
+    ui->ledIndicator_Started->SetGreen();
+    ui->ledIndicator_Stopped->SetOff();
+    ui->SoftStop->setText("Soft Stop");
+
 }
 
 Dialog::~Dialog()
@@ -168,228 +126,47 @@ void Dialog::TargetPower( float f, bool updateDisplay )
 
 void Dialog::timerEvent(QTimerEvent *event)
 {
-    // test data coming in
-    static float prevRTMax = 0;
-    static float prevTCMax = 0;
-    static float prevPowerMax = 0;
-
-
     if( event->timerId() != m_timer )
     {
         return;
     }
 
-    if( m_accumulatedSamples > TOTAL_SAMPLES )
-    {
-        // keep adding until full, then start popping off.
-        TCpointsVector->pop_front();
-        RTpointsVector->pop_front();
-        BandLowpointsVector->pop_front();
-        BandHighpointsVector->pop_front();
-        PowerpointsVector->pop_front();
-    }
+    /////////////////////////////
+    // generate simulated test data
+    QPointF testPoint;
 
-    QDateTime now = QDateTime::currentDateTime();
-    qint64 msecs = now.toMSecsSinceEpoch();
+    static int xx = 0;
 
-    // add in the new points
-    QPointF TCtestPoint, RTtestPoint, PowerTestPoint;
 
-    // test data
-    {
-        static int xx = 0;
-        TCtestPoint.ry() = 400.0 - ((float)xx / (100.0 + (float)xx) * 200.0);
-        RTtestPoint.ry() = ((float)xx / (100.0 + (float)xx) * 200.0);
-        PowerTestPoint.ry() = ((float)xx / (70.0 + (float)xx) * 120.0);
-        xx++;
-    }
+//    if(xx&1)
+//    {
+        ui->ledIndicator_Connection->SetGreen();
+//    }
+//    else
+//    {
+//        ui->ledIndicator_Connection->SetRed();
+//    }
+    ui->ledIndicator_Activity->FlashGreen();
+    //ui->ledIndicator_Connection->repaint();
 
-    TCtestPoint.rx() = msecs;
-    RTtestPoint.rx() = msecs;
-    PowerTestPoint.rx() = msecs;
 
-    if( TCtestPoint.ry() > prevTCMax )
-        prevTCMax = TCtestPoint.ry();
+    testPoint.ry() = 400.0 - ((float)xx / (100.0 + (float)xx) * 200.0);
+    TCchart->Update(testPoint.ry(), m_targetTemperatureBand_Low, m_targetTemperatureBand_Hi);
 
-    if( RTtestPoint.ry() > prevRTMax )
-        prevRTMax = RTtestPoint.ry();
+    testPoint.ry() = ((float)xx / (100.0 + (float)xx) * 200.0);
+    RTchart->Update(testPoint.ry() );
 
-    if( PowerTestPoint.ry() > prevPowerMax )
-        prevPowerMax = PowerTestPoint.ry();
-
-    TCpointsVector->push_back( TCtestPoint );
-    RTpointsVector->push_back( RTtestPoint );
-
-    BandHighpointsVector->push_back( QPointF(msecs, TargetTemperatureBand_Hi()) );
-    BandLowpointsVector->push_back( QPointF(msecs, TargetTemperatureBand_Low()) );
-    PowerpointsVector->push_back( QPointF(msecs, TargetPower() ) );
-
-    // don't change the plot if zooming in
-    if( zoomFlag == false )
-    {
-        TCaxisY->setMin(0);
-        TCaxisY->setMax(prevTCMax);
-
-        RTaxisY->setMin(0);
-        RTaxisY->setMax(prevRTMax);
-
-        // if we haven't gotten enough data yet to fill the graph
-        if( now < m_startTime.addSecs(SECONDS_TO_GRAPH) )
-        {
-            TCaxisX->setMin(m_startTime);
-            TCaxisX->setMax(m_startTime.addSecs(SECONDS_TO_GRAPH));
-
-            RTaxisX->setMin(m_startTime);
-            RTaxisX->setMax(m_startTime.addSecs(SECONDS_TO_GRAPH));
-        }
-        else
-        {
-            QDateTime newStartTime = now.addSecs(-SECONDS_TO_GRAPH);
-            TCaxisX->setMin(newStartTime);
-            TCaxisX->setMax(now.addSecs(SECONDS_TO_GRAPH));
-
-            RTaxisX->setMin(newStartTime);
-            RTaxisX->setMax(now.addSecs(SECONDS_TO_GRAPH));
-        }
-
-    }
-
-    TCseries->replace(*TCpointsVector);
-    RTseries->replace(*RTpointsVector);
-
-    bandHigh->replace(*BandHighpointsVector);
-    bandLow->replace(*BandLowpointsVector);
-    //powerTarget->replace(*PowerpointsVector);
-
-    // update the boxes
-    QString rt;
-    rt.setNum(RTtestPoint.ry(),'f',2);
-    ui->text_RT->setText(rt.rightJustified(8, ' '));
-    ui->text_RT->setAlignment(Qt::AlignRight | Qt::AlignVCenter );
-    //ui->lcd_text_RT->display(rt);
-
-    rt.setNum(TCtestPoint.ry(),'f',2);
-    ui->text_TC->setText(rt.rightJustified(8, ' '));
-    ui->text_TC->setAlignment(Qt::AlignRight | Qt::AlignVCenter );
-    //ui->text_TC->display(rt);
+    testPoint.ry() = ((float)xx / (70.0 + (float)xx) * 120.0);
+    xx++;
 
     // power
-    rt.setNum( PowerTestPoint.ry(), 'f', 2 );
+    QString rt;
+    rt.setNum( testPoint.ry(), 'f', 2 );
     ui->text_POWER->setText(rt.rightJustified(8, ' '));
     ui->text_POWER->setAlignment(Qt::AlignRight | Qt::AlignVCenter );
+
+        update();
 }
-
-//void Dialog::timerEvent(QTimerEvent *event)
-//{
-//    // test data coming in
-//    static int x=0;
-//    static float prevRTMax = 0;
-//    static float prevTCMax = 0;
-//    static float prevPowerMax = 0;
-
-
-//    if( event->timerId() != m_timer )
-//    {
-//        return;
-//    }
-
-//    if( x > TOTAL_SECONDS )
-//    {
-//        // keep adding until full, then start popping off.
-//        TCpointsVector->pop_front();
-//        RTpointsVector->pop_front();
-//        BandLowpointsVector->pop_front();
-//        BandHighpointsVector->pop_front();
-//        PowerpointsVector->pop_front();
-//    }
-
-//    // add in the new points
-//    QPointF TCtestPoint, RTtestPoint, PowerTestPoint;
-
-//    TCtestPoint.ry() = 400.0 - ((float)x / (100.0 + (float)x) * 200.0);
-//    RTtestPoint.ry() = ((float)x / (100.0 + (float)x) * 200.0);
-//    PowerTestPoint.ry() = ((float)x / (70.0 + (float)x) * 120.0);
-
-//    TCtestPoint.rx() = x;
-//    RTtestPoint.rx() = x;
-//    PowerTestPoint.rx() = x;
-
-//    if( TCtestPoint.ry() > prevTCMax )
-//        prevTCMax = TCtestPoint.ry();
-
-//    if( RTtestPoint.ry() > prevRTMax )
-//        prevRTMax = RTtestPoint.ry();
-
-//    if( PowerTestPoint.ry() > prevPowerMax )
-//        prevPowerMax = PowerTestPoint.ry();
-
-//    TCpointsVector->push_back( TCtestPoint );
-//    RTpointsVector->push_back( RTtestPoint );
-
-//    //qDebug() << "pushed " << RTtestPoint << "max " << prevRTMax;
-//    //qDebug() << "zoom flag " << zoomFlag;
-
-//    BandHighpointsVector->push_back( QPointF(x, TargetTemperatureBand_Hi()) );
-//    BandLowpointsVector->push_back( QPointF(x, TargetTemperatureBand_Low()) );
-//    PowerpointsVector->push_back( QPointF(x, TargetPower() ) );
-
-//    // don't change the plot if zooming in
-//    if( zoomFlag == false )
-//    {
-//        TCaxisY->setMin(0);
-//        TCaxisY->setMax(prevTCMax);
-
-//        RTaxisY->setMin(0);
-//        RTaxisY->setMax(prevRTMax);
-
-//        // if we haven't gotten enough data yet to fill the graph
-//        if( x < SECONDS_TO_GRAPH )
-//        {
-//            TCaxisX->setMin(0);
-//            TCaxisX->setMax(SECONDS_TO_GRAPH);
-
-//            RTaxisX->setMin(0);
-//            RTaxisX->setMax(SECONDS_TO_GRAPH);
-//        }
-//        else
-//        {
-//            int newStart = x - SECONDS_TO_GRAPH;
-//            TCaxisX->setMin(newStart);
-//            TCaxisX->setMax(SECONDS_TO_GRAPH + newStart);
-
-//            RTaxisX->setMin(newStart);
-//            RTaxisX->setMax(SECONDS_TO_GRAPH + newStart);
-//        }
-
-//    }
-
-//    TCseries->replace(*TCpointsVector);
-//    RTseries->replace(*RTpointsVector);
-
-//    bandHigh->replace(*BandHighpointsVector);
-//    bandLow->replace(*BandLowpointsVector);
-//    //powerTarget->replace(*PowerpointsVector);
-
-//    // update the boxes
-//    QString rt;
-//    rt.setNum(RTtestPoint.ry(),'f',2);
-//    ui->text_RT->setText(rt.rightJustified(8, ' '));
-//    ui->text_RT->setAlignment(Qt::AlignRight | Qt::AlignVCenter );
-//    //ui->lcd_text_RT->display(rt);
-
-//    rt.setNum(TCtestPoint.ry(),'f',2);
-//    ui->text_TC->setText(rt.rightJustified(8, ' '));
-//    ui->text_TC->setAlignment(Qt::AlignRight | Qt::AlignVCenter );
-//    //ui->text_TC->display(rt);
-
-
-//    // power
-//    rt.setNum( PowerTestPoint.ry(), 'f', 2 );
-//    ui->text_POWER->setText(rt.rightJustified(8, ' '));
-//    ui->text_POWER->setAlignment(Qt::AlignRight | Qt::AlignVCenter );
-
-//    x++;
-//}
 
 void Dialog::setupForMode( OPERATIONAL_MODE om )
 {
@@ -408,8 +185,6 @@ void Dialog::setupForMode( OPERATIONAL_MODE om )
         ui->PowerOutputText->setVisible(false);
 
         //powerTarget->setVisible(false);
-        bandHigh->setVisible(true);
-        bandLow->setVisible(true);
     }
     else
     {
@@ -426,8 +201,6 @@ void Dialog::setupForMode( OPERATIONAL_MODE om )
         ui->PowerOutputText->setVisible(true);
 
         //powerTarget->setVisible(true);
-        bandHigh->setVisible(false);
-        bandLow->setVisible(false);
     }
 }
 
@@ -522,5 +295,40 @@ void Dialog::on_PowerControlModeRadioButton_clicked()
 void Dialog::on_SoftStop_pressed()
 {
     qDebug() << "pressed soft stop";
+    static int xx=0;
+    if(xx == 0)
+    {
+        xx = 1;
+        ui->ledIndicator_Started->SetGreen();
+        ui->ledIndicator_Stopped->SetOff();
+        ui->SoftStop->setText("Soft Stop");
+    }
+    else
+    {
+        xx =0;
+        ui->ledIndicator_Started->SetOff();
+        ui->ledIndicator_Stopped->SetRed();
+        ui->SoftStop->setText("Soft Start");
+    }
+    repaint();
 }
 
+void Dialog::on_Deflux_pressed()
+{
+    qDebug() << "deflux";
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Deflux", "Are you sure you want to deflux the system?", QMessageBox::Yes|QMessageBox::No);
+    if (reply == QMessageBox::Yes)
+    {
+      qDebug() << "Yes was clicked";
+    }
+    else
+    {
+      qDebug() << "Yes was *not* clicked";
+    }
+}
+
+//void Dialog::on_ledIndicator_0_toggled(bool checked)
+//{
+//    qDebug() << "Led toggled: " << checked;
+//}

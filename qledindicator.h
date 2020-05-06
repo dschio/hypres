@@ -24,31 +24,50 @@
 #include <QAbstractButton>
 #include <QResizeEvent>
 #include <QColor>
+#include <QTimer>
 #include <QDebug>
 
-class QLedIndicator : public QAbstractButton
+#define LED_GREEN_1   QColor(0,245, 0)
+#define LED_GREEN_2   QColor(0,192, 0)
+#define LED_RED_1     QColor(245, 0, 0)
+#define LED_RED_2     QColor(192, 0, 0)
+#define LED_OFF_1     QColor(5,0,0)
+#define LED_OFF_2     QColor(0,0,0)
+
+class QLedIndicator : public QWidget //QAbstractButton
 {
     Q_PROPERTY(QColor onColor1      WRITE setOnColor1     READ getOnColor1   );
     Q_PROPERTY(QColor onColor2      WRITE setOnColor2     READ getOnColor2   );
-    Q_PROPERTY(QColor offColor1     WRITE setOffColor1    READ getOffColor1  );
-    Q_PROPERTY(QColor offColor2     WRITE setOffColor2    READ getOffColor2  );
+//    Q_PROPERTY(QColor offColor1     WRITE setOffColor1    READ getOffColor1  );
+//    Q_PROPERTY(QColor offColor2     WRITE setOffColor2    READ getOffColor2  );
     Q_OBJECT
     public:
         QLedIndicator(QWidget *parent);
 
         void setOnColor1(QColor c)  { onColor1  = c;    }
-        void setOffColor1(QColor c) { offColor1 = c;    }
         void setOnColor2(QColor c)  { onColor2  = c;    }
-        void setOffColor2(QColor c) { offColor2 = c;    }
+
+        //void setOffColor2(QColor c) { offColor2 = c;    }
+        //void setOffColor1(QColor c) { offColor1 = c;    }
 
         QColor getOnColor1(void)    { return onColor1;  }
-        QColor getOffColor1(void)   { return offColor1; }
         QColor getOnColor2(void)    { return onColor2;  }
-        QColor getOffColor2(void)   { return offColor2; }
+
+        //QColor getOffColor1(void)   { return offColor1; }
+        //QColor getOffColor2(void)   { return offColor2; }
+
+        void SetRed()               { setOnColor1(LED_RED_1);   setOnColor2(LED_RED_2); }
+        void SetGreen()             { setOnColor1(LED_GREEN_1); setOnColor2(LED_GREEN_2); }
+        void SetOff()               { setOnColor1(LED_OFF_1);   setOnColor2(LED_OFF_2); }
+        void FlashGreen();
+
 
     protected:
         virtual void paintEvent (QPaintEvent *event);
         virtual void resizeEvent(QResizeEvent *event);
+
+private slots:
+        void flashTimer();
 
     private:
         static const qreal scaledSize;  /* init in cpp */

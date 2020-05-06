@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1140</width>
-    <height>691</height>
+    <width>1728</width>
+    <height>972</height>
    </rect>
   </property>
   <property name="palette">
@@ -145,9 +145,14 @@
     <rect>
      <x>20</x>
      <y>10</y>
-     <width>800</width>
-     <height>611</height>
+     <width>1380</width>
+     <height>890</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
    </property>
    <property name="frameShape">
     <enum>QFrame::Box</enum>
@@ -165,15 +170,15 @@
   <widget class="QRadioButton" name="RTGraphRadioButton">
    <property name="geometry">
     <rect>
-     <x>410</x>
-     <y>630</y>
+     <x>723</x>
+     <y>910</y>
      <width>71</width>
      <height>41</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>18</pointsize>
+     <pointsize>11</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
@@ -188,15 +193,15 @@
   <widget class="QRadioButton" name="TCGraphRadioButton">
    <property name="geometry">
     <rect>
-     <x>340</x>
-     <y>640</y>
+     <x>653</x>
+     <y>920</y>
      <width>61</width>
      <height>21</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>18</pointsize>
+     <pointsize>11</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
@@ -208,54 +213,16 @@
     <string notr="true">buttonGroupGraphSelect</string>
    </attribute>
   </widget>
-  <widget class="QLCDNumber" name="lcd_text_RT">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>950</x>
-     <y>30</y>
-     <width>141</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>9</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="autoFillBackground">
-    <bool>true</bool>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::WinPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Sunken</enum>
-   </property>
-   <property name="lineWidth">
-    <number>1</number>
-   </property>
-   <property name="smallDecimalPoint">
-    <bool>false</bool>
-   </property>
-   <property name="digitCount">
-    <number>6</number>
-   </property>
-  </widget>
   <widget class="QLineEdit" name="lineEdit">
    <property name="enabled">
     <bool>false</bool>
    </property>
    <property name="geometry">
     <rect>
-     <x>850</x>
+     <x>1460</x>
      <y>30</y>
      <width>91</width>
-     <height>51</height>
+     <height>41</height>
     </rect>
    </property>
    <property name="palette">
@@ -297,7 +264,7 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>19</pointsize>
+     <pointsize>14</pointsize>
     </font>
    </property>
    <property name="autoFillBackground">
@@ -306,46 +273,11 @@
    <property name="text">
     <string>RT</string>
    </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-  </widget>
-  <widget class="QLCDNumber" name="lcd_text_TC">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>950</x>
-     <y>90</y>
-     <width>141</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>9</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="autoFillBackground">
-    <bool>true</bool>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::WinPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Sunken</enum>
-   </property>
-   <property name="lineWidth">
-    <number>1</number>
-   </property>
-   <property name="smallDecimalPoint">
+   <property name="frame">
     <bool>false</bool>
    </property>
-   <property name="digitCount">
-    <number>6</number>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit_2">
@@ -354,10 +286,10 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>850</x>
-     <y>90</y>
+     <x>1460</x>
+     <y>80</y>
      <width>91</width>
-     <height>51</height>
+     <height>41</height>
     </rect>
    </property>
    <property name="palette">
@@ -399,7 +331,7 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>19</pointsize>
+     <pointsize>14</pointsize>
     </font>
    </property>
    <property name="autoFillBackground">
@@ -408,46 +340,11 @@
    <property name="text">
     <string>TC</string>
    </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-  </widget>
-  <widget class="QLCDNumber" name="lcd_text_POWER">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>950</x>
-     <y>150</y>
-     <width>141</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>9</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="autoFillBackground">
-    <bool>true</bool>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::WinPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Sunken</enum>
-   </property>
-   <property name="lineWidth">
-    <number>1</number>
-   </property>
-   <property name="smallDecimalPoint">
+   <property name="frame">
     <bool>false</bool>
    </property>
-   <property name="digitCount">
-    <number>6</number>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit_3">
@@ -456,10 +353,10 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>850</x>
-     <y>150</y>
+     <x>1460</x>
+     <y>130</y>
      <width>91</width>
-     <height>51</height>
+     <height>41</height>
     </rect>
    </property>
    <property name="palette">
@@ -501,7 +398,7 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>19</pointsize>
+     <pointsize>14</pointsize>
     </font>
    </property>
    <property name="autoFillBackground">
@@ -510,6 +407,9 @@
    <property name="text">
     <string>Power</string>
    </property>
+   <property name="frame">
+    <bool>false</bool>
+   </property>
    <property name="alignment">
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
@@ -517,8 +417,8 @@
   <widget class="QRadioButton" name="TemperatureControlModeRadioButton">
    <property name="geometry">
     <rect>
-     <x>870</x>
-     <y>280</y>
+     <x>1453</x>
+     <y>230</y>
      <width>251</width>
      <height>17</height>
     </rect>
@@ -538,8 +438,8 @@
   <widget class="QRadioButton" name="PowerControlModeRadioButton">
    <property name="geometry">
     <rect>
-     <x>870</x>
-     <y>300</y>
+     <x>1453</x>
+     <y>250</y>
      <width>231</width>
      <height>17</height>
     </rect>
@@ -562,10 +462,10 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>840</x>
-     <y>330</y>
+     <x>1423</x>
+     <y>280</y>
      <width>160</width>
-     <height>51</height>
+     <height>41</height>
     </rect>
    </property>
    <property name="palette">
@@ -616,6 +516,9 @@
    <property name="text">
     <string>Target Temperature</string>
    </property>
+   <property name="frame">
+    <bool>false</bool>
+   </property>
    <property name="alignment">
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
@@ -623,15 +526,15 @@
   <widget class="QPushButton" name="SoftStop">
    <property name="geometry">
     <rect>
-     <x>990</x>
-     <y>630</y>
-     <width>121</width>
+     <x>1480</x>
+     <y>735</y>
+     <width>111</width>
      <height>41</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <pointsize>11</pointsize>
     </font>
    </property>
    <property name="text">
@@ -647,10 +550,10 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>840</x>
-     <y>330</y>
+     <x>1423</x>
+     <y>280</y>
      <width>160</width>
-     <height>51</height>
+     <height>41</height>
     </rect>
    </property>
    <property name="palette">
@@ -701,6 +604,9 @@
    <property name="text">
     <string>Power Output</string>
    </property>
+   <property name="frame">
+    <bool>false</bool>
+   </property>
    <property name="cursorPosition">
     <number>12</number>
    </property>
@@ -714,10 +620,10 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>840</x>
-     <y>390</y>
+     <x>1423</x>
+     <y>330</y>
      <width>160</width>
-     <height>51</height>
+     <height>41</height>
     </rect>
    </property>
    <property name="palette">
@@ -768,6 +674,9 @@
    <property name="text">
     <string>Temperature Band</string>
    </property>
+   <property name="frame">
+    <bool>false</bool>
+   </property>
    <property name="alignment">
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
@@ -778,10 +687,10 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>840</x>
-     <y>460</y>
+     <x>1423</x>
+     <y>380</y>
      <width>160</width>
-     <height>51</height>
+     <height>41</height>
     </rect>
    </property>
    <property name="palette">
@@ -832,6 +741,9 @@
    <property name="text">
     <string>KP</string>
    </property>
+   <property name="frame">
+    <bool>false</bool>
+   </property>
    <property name="alignment">
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
@@ -842,10 +754,10 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>840</x>
-     <y>520</y>
+     <x>1423</x>
+     <y>430</y>
      <width>160</width>
-     <height>51</height>
+     <height>41</height>
     </rect>
    </property>
    <property name="palette">
@@ -896,6 +808,9 @@
    <property name="text">
     <string>KI</string>
    </property>
+   <property name="frame">
+    <bool>false</bool>
+   </property>
    <property name="alignment">
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
@@ -903,10 +818,10 @@
   <widget class="QDoubleSpinBox" name="TargetTemperatureSpin">
    <property name="geometry">
     <rect>
-     <x>1005</x>
-     <y>330</y>
+     <x>1588</x>
+     <y>280</y>
      <width>125</width>
-     <height>51</height>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
@@ -930,10 +845,10 @@
   <widget class="QDoubleSpinBox" name="TemperatureBandSpin">
    <property name="geometry">
     <rect>
-     <x>1005</x>
-     <y>390</y>
+     <x>1588</x>
+     <y>330</y>
      <width>125</width>
-     <height>51</height>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
@@ -960,10 +875,10 @@
   <widget class="QDoubleSpinBox" name="KPSpin">
    <property name="geometry">
     <rect>
-     <x>1005</x>
-     <y>460</y>
+     <x>1588</x>
+     <y>380</y>
      <width>125</width>
-     <height>51</height>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
@@ -987,10 +902,10 @@
   <widget class="QDoubleSpinBox" name="KISpin">
    <property name="geometry">
     <rect>
-     <x>1005</x>
-     <y>520</y>
+     <x>1588</x>
+     <y>430</y>
      <width>125</width>
-     <height>51</height>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
@@ -1014,10 +929,10 @@
   <widget class="QDoubleSpinBox" name="PowerOutputSpin">
    <property name="geometry">
     <rect>
-     <x>1005</x>
-     <y>330</y>
+     <x>1588</x>
+     <y>280</y>
      <width>125</width>
-     <height>51</height>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
@@ -1044,14 +959,19 @@
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>830</x>
-     <y>259</y>
-     <width>301</width>
-     <height>331</height>
+     <x>1410</x>
+     <y>200</y>
+     <width>311</width>
+     <height>291</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
    <property name="title">
-    <string/>
+    <string>Controls</string>
    </property>
    <property name="flat">
     <bool>false</bool>
@@ -1062,97 +982,28 @@
     <rect>
      <x>20</x>
      <y>10</y>
-     <width>801</width>
-     <height>611</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="text_TC">
-   <property name="geometry">
-    <rect>
-     <x>950</x>
-     <y>90</y>
-     <width>141</width>
-     <height>51</height>
+     <width>1380</width>
+     <height>890</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>24</pointsize>
-     <kerning>false</kerning>
+     <pointsize>11</pointsize>
     </font>
-   </property>
-   <property name="acceptDrops">
-    <bool>false</bool>
-   </property>
-   <property name="inputMethodHints">
-    <set>Qt::ImhNone</set>
-   </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-   <property name="horizontalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-   <property name="undoRedoEnabled">
-    <bool>false</bool>
-   </property>
-   <property name="readOnly">
-    <bool>true</bool>
-   </property>
-   <property name="acceptRichText">
-    <bool>false</bool>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="text_POWER">
-   <property name="geometry">
-    <rect>
-     <x>950</x>
-     <y>150</y>
-     <width>141</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>24</pointsize>
-     <kerning>false</kerning>
-    </font>
-   </property>
-   <property name="acceptDrops">
-    <bool>false</bool>
-   </property>
-   <property name="inputMethodHints">
-    <set>Qt::ImhNone</set>
-   </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-   <property name="horizontalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-   <property name="undoRedoEnabled">
-    <bool>false</bool>
-   </property>
-   <property name="readOnly">
-    <bool>true</bool>
-   </property>
-   <property name="acceptRichText">
-    <bool>false</bool>
    </property>
   </widget>
   <widget class="QLineEdit" name="text_RT">
    <property name="geometry">
     <rect>
-     <x>950</x>
+     <x>1560</x>
      <y>30</y>
      <width>141</width>
-     <height>51</height>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>24</pointsize>
+     <pointsize>14</pointsize>
      <kerning>false</kerning>
     </font>
    </property>
@@ -1163,15 +1014,283 @@
     <set>Qt::ImhNone</set>
    </property>
   </widget>
+  <widget class="QLineEdit" name="text_TC">
+   <property name="geometry">
+    <rect>
+     <x>1560</x>
+     <y>80</y>
+     <width>141</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>14</pointsize>
+     <kerning>false</kerning>
+    </font>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="text_POWER">
+   <property name="geometry">
+    <rect>
+     <x>1560</x>
+     <y>130</y>
+     <width>141</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>14</pointsize>
+     <kerning>false</kerning>
+    </font>
+   </property>
+  </widget>
+  <widget class="QLedIndicator" name="ledIndicator_Connection" native="true">
+   <property name="geometry">
+    <rect>
+     <x>1480</x>
+     <y>531</y>
+     <width>20</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+  </widget>
+  <widget class="QLabel" name="connect_text">
+   <property name="geometry">
+    <rect>
+     <x>1510</x>
+     <y>531</y>
+     <width>141</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Connection</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="error_text">
+   <property name="geometry">
+    <rect>
+     <x>1510</x>
+     <y>561</y>
+     <width>141</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Error</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QLedIndicator" name="ledIndicator_Error" native="true">
+   <property name="geometry">
+    <rect>
+     <x>1480</x>
+     <y>561</y>
+     <width>20</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>1410</x>
+     <y>501</y>
+     <width>311</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="title">
+    <string>Status</string>
+   </property>
+  </widget>
+  <widget class="QLedIndicator" name="ledIndicator_Activity" native="true">
+   <property name="geometry">
+    <rect>
+     <x>1480</x>
+     <y>591</y>
+     <width>20</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+  </widget>
+  <widget class="QLabel" name="activity_text">
+   <property name="geometry">
+    <rect>
+     <x>1510</x>
+     <y>591</y>
+     <width>141</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Activity</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QLedIndicator" name="ledIndicator_Started" native="true">
+   <property name="geometry">
+    <rect>
+     <x>1480</x>
+     <y>675</y>
+     <width>20</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+  </widget>
+  <widget class="QLedIndicator" name="ledIndicator_Stopped" native="true">
+   <property name="geometry">
+    <rect>
+     <x>1480</x>
+     <y>705</y>
+     <width>20</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+  </widget>
+  <widget class="QLabel" name="connect_text_2">
+   <property name="geometry">
+    <rect>
+     <x>1510</x>
+     <y>675</y>
+     <width>141</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Started</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="connect_text_3">
+   <property name="geometry">
+    <rect>
+     <x>1510</x>
+     <y>705</y>
+     <width>141</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Stopped</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Deflux">
+   <property name="geometry">
+    <rect>
+     <x>1480</x>
+     <y>830</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Deflux</string>
+   </property>
+   <property name="autoDefault">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_3">
+   <property name="geometry">
+    <rect>
+     <x>1410</x>
+     <y>645</y>
+     <width>311</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="title">
+    <string>Soft Stop / Start</string>
+   </property>
+  </widget>
+  <zorder>groupBox_3</zorder>
+  <zorder>groupBox_2</zorder>
   <zorder>groupBox</zorder>
   <zorder>TC_Chart</zorder>
   <zorder>RTGraphRadioButton</zorder>
   <zorder>TCGraphRadioButton</zorder>
-  <zorder>lcd_text_RT</zorder>
   <zorder>lineEdit</zorder>
-  <zorder>lcd_text_TC</zorder>
   <zorder>lineEdit_2</zorder>
-  <zorder>lcd_text_POWER</zorder>
   <zorder>lineEdit_3</zorder>
   <zorder>TemperatureControlModeRadioButton</zorder>
   <zorder>PowerControlModeRadioButton</zorder>
@@ -1187,21 +1306,38 @@
   <zorder>KISpin</zorder>
   <zorder>PowerOutputSpin</zorder>
   <zorder>RT_Chart</zorder>
+  <zorder>text_RT</zorder>
   <zorder>text_TC</zorder>
   <zorder>text_POWER</zorder>
-  <zorder>text_RT</zorder>
+  <zorder>ledIndicator_Connection</zorder>
+  <zorder>connect_text</zorder>
+  <zorder>error_text</zorder>
+  <zorder>ledIndicator_Error</zorder>
+  <zorder>ledIndicator_Activity</zorder>
+  <zorder>activity_text</zorder>
+  <zorder>ledIndicator_Started</zorder>
+  <zorder>ledIndicator_Stopped</zorder>
+  <zorder>connect_text_2</zorder>
+  <zorder>connect_text_3</zorder>
+  <zorder>Deflux</zorder>
  </widget>
  <customwidgets>
   <customwidget>
    <class>ChartView</class>
    <extends>QGraphicsView</extends>
-   <header location="global">chartview.h</header>
+   <header>chartview.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QLedIndicator</class>
+   <extends>QWidget</extends>
+   <header>qledindicator.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroupGraphSelect"/>
   <buttongroup name="buttonGroupModeSelect"/>
+  <buttongroup name="buttonGroupGraphSelect"/>
  </buttongroups>
 </ui>

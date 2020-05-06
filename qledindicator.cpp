@@ -24,14 +24,14 @@
 
 const qreal QLedIndicator::scaledSize = 1000; /* Visual Studio static const mess */
 
-QLedIndicator::QLedIndicator(QWidget *parent) : QAbstractButton(parent)
+QLedIndicator::QLedIndicator(QWidget *parent) : QWidget(parent) //QAbstractButton(parent)
 {
     setMinimumSize(24,24);
-    setCheckable(true);
-    onColor1 =  QColor(0,255,0);
-    onColor2 =  QColor(0,192,0);
-    offColor1 = QColor(0,28,0);
-    offColor2 = QColor(0,128,0);
+    //setCheckable(true);
+//    onColor1 =  QColor(0,245,0);
+//    onColor2 =  QColor(0,192,0);
+////    offColor1 = QColor(0,27,0);
+////    offColor2 = QColor(0,128,0);
 }
 
 void QLedIndicator::resizeEvent(QResizeEvent *event) {
@@ -65,16 +65,30 @@ void QLedIndicator::paintEvent(QPaintEvent *event) {
     painter.drawEllipse(QPointF(0,0), 450, 450);
 
     painter.setPen(pen);
-    if( isChecked() ) {
+//    if( isChecked() ) {
         gradient = QRadialGradient (QPointF(-500,-500), 1500, QPointF(-500,-500));
         gradient.setColorAt(0, onColor1);
         gradient.setColorAt(1, onColor2);
-    } else {
-        gradient = QRadialGradient (QPointF(500,500), 1500, QPointF(500,500));
-        gradient.setColorAt(0, offColor1);
-        gradient.setColorAt(1, offColor2);
-    }
+
+//    } else {
+//        gradient = QRadialGradient (QPointF(500,500), 1500, QPointF(500,500));
+//        gradient.setColorAt(0, offColor1);
+//        gradient.setColorAt(1, offColor2);
+//    }
     painter.setBrush(gradient);
     painter.drawEllipse(QPointF(0,0), 400, 400);
 }
 
+void QLedIndicator::FlashGreen()
+{
+    setOnColor1(LED_GREEN_1);
+    setOnColor2(LED_GREEN_2);
+    QTimer::singleShot(100, this, SLOT(flashTimer()));
+}
+
+void QLedIndicator::flashTimer()
+{
+    SetOff();
+    //update();
+    repaint();
+}
